@@ -47,43 +47,42 @@ const skills = [
     { name: "Rust", icon: Terminal, level: "Beginner", color: "#DEA584" },
 ];
 
-const SkillCard: React.FC<{ skill: (typeof skills)[0]; index: number }> = ({
-    skill,
-    index,
-}) => {
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1, duration: 0.5 }}
-            whileHover={{ scale: 1.05, y: -5 }}
-            className="glass glass-hover p-6 rounded-3xl relative group overflow-hidden"
-        >
-            <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500"
-                style={{ backgroundColor: skill.color }}
-            />
+const SkillCard: React.FC<{ skill: (typeof skills)[0]; index: number }> =
+    React.memo(({ skill, index }) => {
+        return (
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+                style={{ willChange: "transform, opacity" }}
+                className="glass glass-hover p-6 rounded-3xl relative group overflow-hidden"
+            >
+                <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500"
+                    style={{ backgroundColor: skill.color }}
+                />
 
-            <div className="relative z-10">
-                <div className="w-12 h-12 rounded-2xl bg-blue-50/50 dark:bg-white/5 flex items-center justify-center mb-6 group-hover:bg-blue-100/50 dark:group-hover:bg-white/10 transition-colors">
-                    <skill.icon className="w-6 h-6 text-primary dark:text-accent-neon group-hover:scale-110 transition-transform" />
+                <div className="relative z-10">
+                    <div className="w-12 h-12 rounded-2xl bg-blue-50/50 dark:bg-white/5 flex items-center justify-center mb-6 group-hover:bg-blue-100/50 dark:group-hover:bg-white/10 transition-colors">
+                        <skill.icon className="w-6 h-6 text-primary dark:text-accent-neon group-hover:scale-110 transition-transform" />
+                    </div>
+
+                    <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
+                        {skill.name}
+                    </h3>
+                    <p className="text-muted text-sm font-mono tracking-wider">
+                        {skill.level}
+                    </p>
                 </div>
 
-                <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
-                    {skill.name}
-                </h3>
-                <p className="text-muted text-sm font-mono tracking-wider">
-                    {skill.level}
-                </p>
-            </div>
-
-            <div className="absolute bottom-4 right-4 opacity-[0.03] dark:opacity-10 group-hover:opacity-[0.08] dark:group-hover:opacity-20 transition-opacity">
-                <skill.icon className="w-12 h-12 text-primary dark:text-white" />
-            </div>
-        </motion.div>
-    );
-};
+                <div className="absolute bottom-4 right-4 opacity-[0.03] dark:opacity-10 group-hover:opacity-[0.08] dark:group-hover:opacity-20 transition-opacity">
+                    <skill.icon className="w-12 h-12 text-primary dark:text-white" />
+                </div>
+            </motion.div>
+        );
+    });
 
 const Skills: React.FC = () => {
     const { theme } = useTheme();

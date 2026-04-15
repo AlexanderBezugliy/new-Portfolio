@@ -14,10 +14,20 @@ const Hero: React.FC = () => {
     const bgY = useTransform(scrollY, [0, 500], [0, 150]);
 
     // Mouse parallax
-    const mouseX =
-        (x - (typeof window !== "undefined" ? window.innerWidth / 2 : 0)) / 50;
-    const mouseY =
-        (y - (typeof window !== "undefined" ? window.innerHeight / 2 : 0)) / 50;
+    const mouseX = useTransform(
+        x,
+        (latestX) =>
+            (latestX -
+                (typeof window !== "undefined" ? window.innerWidth / 2 : 0)) /
+            50,
+    );
+    const mouseY = useTransform(
+        y,
+        (latestY) =>
+            (latestY -
+                (typeof window !== "undefined" ? window.innerHeight / 2 : 0)) /
+            50,
+    );
 
     const titleLines = ["I'M ALEX", "VIBE CODER"];
 
@@ -27,7 +37,10 @@ const Hero: React.FC = () => {
             ref={containerRef}
             className="relative h-screen flex items-center justify-center overflow-hidden"
         >
-            <motion.div style={{ y: bgY }} className="absolute inset-0 z-0">
+            <motion.div
+                style={{ y: bgY, willChange: "transform" }}
+                className="absolute inset-0 z-0"
+            >
                 <ParticleBackground />
             </motion.div>
 
@@ -35,8 +48,9 @@ const Hero: React.FC = () => {
                 <motion.div
                     style={{
                         y: titleY,
-                        rotateX: -mouseY,
+                        rotateX: useTransform(mouseY, (v) => -v),
                         rotateY: mouseX,
+                        willChange: "transform",
                     }}
                     className="perspective-1000"
                 >
@@ -98,9 +112,10 @@ const Hero: React.FC = () => {
                         <motion.button
                             whileHover={{
                                 scale: 1.05,
-                                boxShadow: "0 0 40px rgba(15,23,42,0.3)",
+                                filter: "drop-shadow(0 0 20px rgba(15,23,42,0.3))",
                             }}
                             whileTap={{ scale: 0.95 }}
+                            style={{ willChange: "transform, filter" }}
                             className="px-8 py-4 bg-primary text-primary-foreground rounded-full font-bold text-sm uppercase tracking-widest transition-all duration-300 shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30"
                         >
                             View Projects
@@ -108,9 +123,10 @@ const Hero: React.FC = () => {
                         <motion.button
                             whileHover={{
                                 scale: 1.05,
-                                boxShadow: "0 8px 30px rgba(15,23,42,0.15)",
+                                filter: "drop-shadow(0 8px 15px rgba(15,23,42,0.15))",
                             }}
                             whileTap={{ scale: 0.95 }}
+                            style={{ willChange: "transform, filter" }}
                             className="px-8 py-4 glass glass-hover text-foreground rounded-full font-bold text-sm uppercase tracking-widest transition-all duration-300 border-2 border-foreground/20 hover:border-foreground/40"
                         >
                             Get in Touch

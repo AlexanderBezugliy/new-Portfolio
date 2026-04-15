@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { motion, useSpring } from "framer-motion";
+import { motion, useSpring, useMotionValue, useTransform } from "framer-motion";
 
 const CustomCursor: React.FC = () => {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
     const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
         const handleMouseMove = (event: MouseEvent) => {
-            setMousePosition({ x: event.clientX, y: event.clientY });
+            mouseX.set(event.clientX);
+            mouseY.set(event.clientY);
         };
 
         const handleMouseOver = (event: MouseEvent) => {
@@ -31,16 +33,22 @@ const CustomCursor: React.FC = () => {
             window.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("mouseover", handleMouseOver);
         };
-    }, []);
+    }, [mouseX, mouseY]);
 
-    const springX = useSpring(mousePosition.x - 16, {
-        damping: 25,
-        stiffness: 250,
-    });
-    const springY = useSpring(mousePosition.y - 16, {
-        damping: 25,
-        stiffness: 250,
-    });
+    const springX = useSpring(
+        useTransform(mouseX, (x) => x - 16),
+        {
+            damping: 25,
+            stiffness: 250,
+        },
+    );
+    const springY = useSpring(
+        useTransform(mouseY, (y) => y - 16),
+        {
+            damping: 25,
+            stiffness: 250,
+        },
+    );
 
     return (
         <motion.div
@@ -48,6 +56,7 @@ const CustomCursor: React.FC = () => {
             style={{
                 x: springX,
                 y: springY,
+                willChange: "transform",
             }}
         >
             <motion.div

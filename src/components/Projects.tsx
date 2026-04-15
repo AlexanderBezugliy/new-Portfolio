@@ -36,13 +36,14 @@ const projects = [
 const ProjectCard: React.FC<{
     project: (typeof projects)[0];
     index: number;
-}> = ({ project, index }) => {
+}> = React.memo(({ project, index }) => {
     return (
         <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: index * 0.1, duration: 0.6 }}
+            style={{ willChange: "transform, opacity" }}
             className="group relative flex flex-col glass glass-hover rounded-[40px] overflow-hidden transition-all duration-500 border-border/20 dark:border-white/5"
         >
             {/* Image Placeholder */}
@@ -100,7 +101,7 @@ const ProjectCard: React.FC<{
             </div>
         </motion.div>
     );
-};
+});
 
 const Projects: React.FC = () => {
     return (

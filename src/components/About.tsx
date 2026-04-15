@@ -8,6 +8,27 @@ const stats = [
     { label: "Lines of Code", value: "1M+" },
 ];
 
+const StatItem: React.FC<{ stat: (typeof stats)[0]; i: number }> = React.memo(({ stat, i }) => (
+    <motion.div
+        key={stat.label}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{
+            delay: i * 0.1 + 0.5,
+            duration: 0.5,
+        }}
+        style={{ willChange: "transform, opacity" }}
+    >
+        <div className="text-4xl md:text-5xl font-black text-foreground mb-2 tracking-tighter">
+            {stat.value}
+        </div>
+        <div className="text-xs font-mono text-accent-blue dark:text-accent-neon uppercase tracking-widest">
+            {stat.label}
+        </div>
+    </motion.div>
+));
+
 const About: React.FC = () => {
     return (
         <section
@@ -28,12 +49,13 @@ const About: React.FC = () => {
                         <motion.div
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: true, margin: "-100px" }}
                             transition={{ duration: 0.8 }}
+                            style={{ willChange: "transform, opacity" }}
                         >
                             <h2 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8 text-foreground">
                                 CRAFTING{" "}
-                                <span className="text-gradient italic">
+                                <span className="text-gradient italic pr-3">
                                     INTENTION
                                 </span>{" "}
                                 <br />
@@ -57,23 +79,11 @@ const About: React.FC = () => {
 
                         <div className="grid grid-cols-2 gap-8 pt-8 border-t border-border/10">
                             {stats.map((stat, i) => (
-                                <motion.div
+                                <StatItem
                                     key={stat.label}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{
-                                        delay: i * 0.1 + 0.5,
-                                        duration: 0.5,
-                                    }}
-                                >
-                                    <div className="text-4xl md:text-5xl font-black text-foreground mb-2 tracking-tighter">
-                                        {stat.value}
-                                    </div>
-                                    <div className="text-xs font-mono text-accent-blue dark:text-accent-neon uppercase tracking-widest">
-                                        {stat.label}
-                                    </div>
-                                </motion.div>
+                                    stat={stat}
+                                    i={i}
+                                />
                             ))}
                         </div>
                     </div>
@@ -83,11 +93,12 @@ const About: React.FC = () => {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
                             whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-                            viewport={{ once: true }}
+                            viewport={{ once: true, margin: "-100px" }}
                             transition={{
                                 duration: 1,
                                 ease: [0.16, 1, 0.3, 1],
                             }}
+                            style={{ willChange: "transform, opacity" }}
                             className="relative aspect-square rounded-[60px] glass overflow-hidden p-2 shadow-2xl"
                         >
                             <div className="absolute inset-0 bg-gradient-to-tr from-accent-blue/10 dark:from-accent-blue/20 via-transparent to-accent-purple/10 dark:to-accent-purple/20" />
@@ -109,6 +120,7 @@ const About: React.FC = () => {
                             <motion.div
                                 animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }}
                                 transition={{ duration: 5, repeat: Infinity }}
+                                style={{ willChange: "transform" }}
                                 className="absolute -top-0 -right-0 w-32 h-32 glass rounded-full flex items-center justify-center p-4 text-center text-[10px] font-bold leading-tight tracking-widest uppercase border border-white/20"
                             >
                                 Focus on <br /> Performance

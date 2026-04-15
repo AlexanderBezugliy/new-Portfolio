@@ -57,6 +57,12 @@ body {
         color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+@media (min-width: 768px) {
+    body, a, button, [role="button"] {
+        cursor: none !important;
+    }
+}
+
 .glass {
     background-color: var(--glass-bg);
     backdrop-filter: blur(16px);

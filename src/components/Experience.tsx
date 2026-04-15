@@ -35,6 +35,41 @@ const experience = [
     },
 ];
 
+const ExperienceItem: React.FC<{ item: (typeof experience)[0]; index: number }> = React.memo(({ item, index }) => (
+    <motion.div
+        key={item.company}
+        initial={{ opacity: 0, x: 30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ delay: index * 0.1, duration: 0.6 }}
+        style={{ willChange: "transform, opacity" }}
+        className="relative group"
+    >
+        {/* Timeline Point */}
+        <div className="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-background border-2 border-accent-blue dark:border-accent-neon z-20 group-hover:scale-150 transition-transform duration-300 shadow-[0_0_10px_var(--accent-glow)]" />
+
+        <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-16">
+            <div className="w-40 flex-shrink-0">
+                <div className="text-sm font-mono text-accent-blue dark:text-accent-neon opacity-70 mb-1">
+                    {item.period}
+                </div>
+                <h3 className="text-xl font-black text-foreground group-hover:text-accent-blue dark:group-hover:text-accent-neon transition-colors">
+                    {item.company}
+                </h3>
+            </div>
+
+            <div className="flex-grow">
+                <div className="text-lg font-bold text-foreground/80 dark:text-gray-200 mb-4 tracking-tight">
+                    {item.role}
+                </div>
+                <p className="text-muted font-light leading-relaxed max-w-xl">
+                    {item.description}
+                </p>
+            </div>
+        </div>
+    </motion.div>
+));
+
 const Experience: React.FC = () => {
     const { theme } = useTheme();
 
@@ -69,37 +104,11 @@ const Experience: React.FC = () => {
 
                 <div className="relative max-w-4xl mx-auto pl-8 border-l border-border/20 space-y-24">
                     {experience.map((item, i) => (
-                        <motion.div
+                        <ExperienceItem
                             key={item.company}
-                            initial={{ opacity: 0, x: 30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true, margin: "-100px" }}
-                            transition={{ delay: i * 0.1, duration: 0.6 }}
-                            className="relative group"
-                        >
-                            {/* Timeline Point */}
-                            <div className="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-background border-2 border-accent-blue dark:border-accent-neon z-20 group-hover:scale-150 transition-transform duration-300 shadow-[0_0_10px_var(--accent-glow)]" />
-
-                            <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-16">
-                                <div className="w-40 flex-shrink-0">
-                                    <div className="text-sm font-mono text-accent-blue dark:text-accent-neon opacity-70 mb-1">
-                                        {item.period}
-                                    </div>
-                                    <h3 className="text-xl font-black text-foreground group-hover:text-accent-blue dark:group-hover:text-accent-neon transition-colors">
-                                        {item.company}
-                                    </h3>
-                                </div>
-
-                                <div className="flex-grow">
-                                    <div className="text-lg font-bold text-foreground/80 dark:text-gray-200 mb-4 tracking-tight">
-                                        {item.role}
-                                    </div>
-                                    <p className="text-muted font-light leading-relaxed max-w-xl">
-                                        {item.description}
-                                    </p>
-                                </div>
-                            </div>
-                        </motion.div>
+                            item={item}
+                            index={i}
+                        />
                     ))}
                 </div>
             </div>
