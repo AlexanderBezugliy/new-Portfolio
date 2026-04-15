@@ -8,26 +8,28 @@ const stats = [
     { label: "Lines of Code", value: "1M+" },
 ];
 
-const StatItem: React.FC<{ stat: (typeof stats)[0]; i: number }> = React.memo(({ stat, i }) => (
-    <motion.div
-        key={stat.label}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{
-            delay: i * 0.1 + 0.5,
-            duration: 0.5,
-        }}
-        style={{ willChange: "transform, opacity" }}
-    >
-        <div className="text-4xl md:text-5xl font-black text-foreground mb-2 tracking-tighter">
-            {stat.value}
-        </div>
-        <div className="text-xs font-mono text-accent-blue dark:text-accent-neon uppercase tracking-widest">
-            {stat.label}
-        </div>
-    </motion.div>
-));
+const StatItem: React.FC<{ stat: (typeof stats)[0]; i: number }> = React.memo(
+    ({ stat, i }) => (
+        <motion.div
+            key={stat.label}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px", amount: "some" }}
+            transition={{
+                delay: i * 0.1 + 0.5,
+                duration: 0.5,
+            }}
+            style={{ willChange: "transform, opacity" }}
+        >
+            <div className="text-4xl md:text-5xl font-black text-foreground mb-2 tracking-tighter">
+                {stat.value}
+            </div>
+            <div className="text-xs font-mono text-accent-blue dark:text-accent-neon uppercase tracking-widest">
+                {stat.label}
+            </div>
+        </motion.div>
+    ),
+);
 
 const About: React.FC = () => {
     return (
@@ -49,7 +51,11 @@ const About: React.FC = () => {
                         <motion.div
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true, margin: "-100px" }}
+                            viewport={{
+                                once: true,
+                                margin: "-100px",
+                                amount: "some",
+                            }}
                             transition={{ duration: 0.8 }}
                             style={{ willChange: "transform, opacity" }}
                         >
@@ -79,11 +85,7 @@ const About: React.FC = () => {
 
                         <div className="grid grid-cols-2 gap-8 pt-8 border-t border-border/10">
                             {stats.map((stat, i) => (
-                                <StatItem
-                                    key={stat.label}
-                                    stat={stat}
-                                    i={i}
-                                />
+                                <StatItem key={stat.label} stat={stat} i={i} />
                             ))}
                         </div>
                     </div>
@@ -93,7 +95,11 @@ const About: React.FC = () => {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
                             whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-                            viewport={{ once: true, margin: "-100px" }}
+                            viewport={{
+                                once: true,
+                                margin: "-100px",
+                                amount: "some",
+                            }}
                             transition={{
                                 duration: 1,
                                 ease: [0.16, 1, 0.3, 1],

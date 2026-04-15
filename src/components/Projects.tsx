@@ -41,7 +41,7 @@ const ProjectCard: React.FC<{
         <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-100px", amount: "some" }}
             transition={{ delay: index * 0.1, duration: 0.6 }}
             style={{ willChange: "transform, opacity" }}
             className="group relative flex flex-col glass glass-hover rounded-[40px] overflow-hidden transition-all duration-500 border-border/20 dark:border-white/5"

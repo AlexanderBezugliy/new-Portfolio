@@ -7,9 +7,14 @@ const CustomCursor: React.FC = () => {
     const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
+        if (typeof window !== "undefined" && window.innerWidth < 768) return;
+
+        let rafId: number;
         const handleMouseMove = (event: MouseEvent) => {
-            mouseX.set(event.clientX);
-            mouseY.set(event.clientY);
+            rafId = requestAnimationFrame(() => {
+                mouseX.set(event.clientX);
+                mouseY.set(event.clientY);
+            });
         };
 
         const handleMouseOver = (event: MouseEvent) => {
@@ -32,6 +37,7 @@ const CustomCursor: React.FC = () => {
         return () => {
             window.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("mouseover", handleMouseOver);
+            if (rafId) cancelAnimationFrame(rafId);
         };
     }, [mouseX, mouseY]);
 
@@ -67,7 +73,7 @@ const CustomCursor: React.FC = () => {
                         : "transparent",
                     borderColor: isHovered ? "var(--pill-bg)" : "var(--muted)",
                 }}
-                className="w-full h-full rounded-full border backdrop-blur-sm transition-colors duration-300 flex items-center justify-center"
+                className="w-full h-full rounded-full border transition-colors duration-300 flex items-center justify-center"
             >
                 <div className="w-1 h-1 bg-foreground rounded-full" />
             </motion.div>

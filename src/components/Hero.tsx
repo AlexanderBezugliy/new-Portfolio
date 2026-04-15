@@ -1,33 +1,23 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import ParticleBackground from "./ParticleBackground";
+import NeuralBackground from "./ui/flow-field-background";
 import { ChevronDown } from "lucide-react";
-import { useMousePosition } from "../hooks/useMousePosition";
 
 const Hero: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
-    const { x, y } = useMousePosition();
     const { scrollY } = useScroll();
+    const [isMobile, setIsMobile] = React.useState(false);
+
+    React.useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
 
     // Parallax effects
-    const titleY = useTransform(scrollY, [0, 500], [0, -100]);
-    const bgY = useTransform(scrollY, [0, 500], [0, 150]);
-
-    // Mouse parallax
-    const mouseX = useTransform(
-        x,
-        (latestX) =>
-            (latestX -
-                (typeof window !== "undefined" ? window.innerWidth / 2 : 0)) /
-            50,
-    );
-    const mouseY = useTransform(
-        y,
-        (latestY) =>
-            (latestY -
-                (typeof window !== "undefined" ? window.innerHeight / 2 : 0)) /
-            50,
-    );
+    const titleY = useTransform(scrollY, [0, 500], [0, isMobile ? 0 : -100]);
+    const bgY = useTransform(scrollY, [0, 500], [0, isMobile ? 0 : 150]);
 
     const titleLines = ["I'M ALEX", "VIBE CODER"];
 
@@ -41,18 +31,19 @@ const Hero: React.FC = () => {
                 style={{ y: bgY, willChange: "transform" }}
                 className="absolute inset-0 z-0"
             >
-                <ParticleBackground />
+                <NeuralBackground
+                    particleCount={500}
+                    trailOpacity={0.12}
+                    speed={0.8}
+                />
             </motion.div>
 
             <div className="container mx-auto px-6 z-10 text-center">
                 <motion.div
                     style={{
                         y: titleY,
-                        rotateX: useTransform(mouseY, (v) => -v),
-                        rotateY: mouseX,
                         willChange: "transform",
                     }}
-                    className="perspective-1000"
                 >
                     <motion.span
                         className="inline-block py-2 px-4 rounded-full border border-accent-blue/20 dark:border-accent-neon/30 bg-accent-blue/5 dark:bg-accent-neon/5 text-accent-blue dark:text-accent-neon text-xs font-mono mb-8 tracking-[0.2em]"

@@ -65,7 +65,12 @@ body {
 
 .glass {
     background-color: var(--glass-bg);
-    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+}
+
+.nav-glass {
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(4px);
     border: 1px solid var(--glass-border);
 }
 

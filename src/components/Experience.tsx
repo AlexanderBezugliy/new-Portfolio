@@ -1,8 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useTheme } from "next-themes";
-import { BackgroundPaths } from "./ui/background-paths";
-import { GeometricBackground } from "./ui/shape-landing-hero";
+import CssBackground from "./CssBackground";
 
 const experience = [
     {
@@ -35,12 +33,15 @@ const experience = [
     },
 ];
 
-const ExperienceItem: React.FC<{ item: (typeof experience)[0]; index: number }> = React.memo(({ item, index }) => (
+const ExperienceItem: React.FC<{
+    item: (typeof experience)[0];
+    index: number;
+}> = React.memo(({ item, index }) => (
     <motion.div
         key={item.company}
         initial={{ opacity: 0, x: 30 }}
         whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true, margin: "-100px", amount: "some" }}
         transition={{ delay: index * 0.1, duration: 0.6 }}
         style={{ willChange: "transform, opacity" }}
         className="relative group"
@@ -71,18 +72,12 @@ const ExperienceItem: React.FC<{ item: (typeof experience)[0]; index: number }> 
 ));
 
 const Experience: React.FC = () => {
-    const { theme } = useTheme();
-
     return (
         <section
             id="experience"
             className="py-32 bg-background dark:bg-[#030303] relative overflow-hidden"
         >
-            {theme === "dark" ? (
-                <GeometricBackground />
-            ) : (
-                <BackgroundPaths color="rgba(0,0,0,0.15)" />
-            )}
+            <CssBackground />
             {/* Background Decor */}
             <div className="absolute top-[20%] right-[-10%] w-[50%] h-[50%] bg-accent-blue/5 blur-[120px] rounded-full pointer-events-none dark:hidden" />
             <div className="absolute bottom-0 left-[-10%] w-[50%] h-[50%] bg-accent-purple/5 blur-[120px] rounded-full pointer-events-none dark:hidden" />

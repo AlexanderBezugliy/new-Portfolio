@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
                     className={`hidden lg:flex items-center gap-4 pointer-events-auto`}
                 >
                     <div
-                        className={`flex glass glass-hover rounded-full px-1.5 py-1.5 items-center gap-1 shadow-2xl transition-all duration-500 ${
+                        className={`flex nav-glass glass-hover rounded-full px-1.5 py-1.5 items-center gap-1 shadow-2xl transition-all duration-500 ${
                             isScrolled ? "max-w-max" : "max-w-4xl"
                         }`}
                     >
@@ -117,7 +117,7 @@ const Navbar: React.FC = () => {
                     </div>
                     <motion.button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="glass p-3 rounded-full text-foreground shadow-2xl pointer-events-auto"
+                        className="nav-glass p-3 rounded-full text-foreground shadow-2xl pointer-events-auto"
                         whileTap={{ scale: 0.9 }}
                     >
                         {isMobileMenuOpen ? (
@@ -136,7 +136,7 @@ const Navbar: React.FC = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[90] bg-background/95 backdrop-blur-xl lg:hidden flex flex-col items-center justify-center overflow-hidden"
+                        className="fixed inset-0 z-[90] bg-background/95 lg:hidden flex flex-col items-center justify-center overflow-hidden"
                     >
                         <div className="flex flex-col items-center gap-6 md:gap-8 max-h-[80vh] overflow-y-auto no-scrollbar py-10">
                             {navItems.map((item, index) => {

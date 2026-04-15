@@ -15,9 +15,7 @@ import {
     Terminal,
     Figma,
 } from "lucide-react";
-import { useTheme } from "next-themes";
-import ShaderBackground from "./ui/shader-background";
-import { BackgroundPaths } from "./ui/background-paths";
+import CssBackground from "./CssBackground";
 
 const skills = [
     { name: "React", icon: Layout, level: "Expert", color: "#61DAFB" },
@@ -53,7 +51,7 @@ const SkillCard: React.FC<{ skill: (typeof skills)[0]; index: number }> =
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
+                viewport={{ once: true, margin: "-50px", amount: "some" }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
                 whileHover={{ scale: 1.05, y: -5 }}
                 style={{ willChange: "transform, opacity" }}
@@ -85,18 +83,12 @@ const SkillCard: React.FC<{ skill: (typeof skills)[0]; index: number }> =
     });
 
 const Skills: React.FC = () => {
-    const { theme } = useTheme();
-
     return (
         <section
             id="skills"
             className="py-24 bg-background relative overflow-hidden"
         >
-            {theme === "dark" ? (
-                <ShaderBackground />
-            ) : (
-                <BackgroundPaths color="rgba(0,0,0,0.15)" />
-            )}
+            <CssBackground />
             {/* Background Decor */}
             <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-accent-purple/5 blur-[120px] rounded-full pointer-events-none" />
 
