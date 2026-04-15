@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Github, Twitter, Linkedin, Mail, ArrowUpRight } from "lucide-react";
+import { SplineScene } from "./ui/splite";
+import { Spotlight } from "./ui/spotlight";
 
 const socials = [
     { name: "GitHub", icon: Github, link: "https://github.com/alex" },
@@ -15,6 +17,18 @@ const Contact: React.FC = () => {
             id="contact"
             className="py-32 bg-background relative overflow-hidden"
         >
+            <Spotlight
+                className="-top-40 left-0 md:left-60 md:-top-20"
+                fill="white"
+            />
+            
+            <div className="absolute inset-0 z-0 opacity-30 dark:opacity-50">
+                <SplineScene 
+                    scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                    className="w-full h-full"
+                />
+            </div>
+
             {/* Background Decor */}
             <div className="absolute top-[30%] right-[-10%] w-[50%] h-[50%] bg-accent-blue/5 blur-[120px] rounded-full pointer-events-none" />
 
@@ -26,12 +40,12 @@ const Contact: React.FC = () => {
                     transition={{ duration: 0.8 }}
                     className="max-w-4xl mx-auto"
                 >
-                    <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-8 leading-none">
+                    <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-8 leading-none text-foreground">
                         LET'S CREATE <br />
                         <span className="text-gradient">THE FUTURE.</span>
                     </h2>
 
-                    <p className="text-xl md:text-2xl text-gray-400 font-light mb-16 leading-relaxed max-w-2xl mx-auto">
+                    <p className="text-xl md:text-2xl text-muted font-light mb-16 leading-relaxed max-w-2xl mx-auto">
                         Have an exciting project or just want to say hi? I'm
                         always open to new opportunities and collaborations.
                     </p>
@@ -41,7 +55,7 @@ const Contact: React.FC = () => {
                             href="mailto:alex@example.com"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="text-4xl md:text-5xl font-bold text-white hover:text-accent-neon transition-colors duration-300 underline underline-offset-8 decoration-accent-neon/30"
+                            className="text-4xl md:text-5xl font-bold text-foreground hover:text-accent-blue dark:hover:text-accent-neon transition-colors duration-300 underline underline-offset-8 decoration-accent-blue/30 dark:decoration-accent-neon/30"
                         >
                             alex@example.com
                         </motion.a>
@@ -58,12 +72,12 @@ const Contact: React.FC = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.1, duration: 0.5 }}
-                                className="group p-6 glass hover:neon-glow transition-all duration-300 rounded-3xl flex flex-col items-center gap-4 border border-white/5"
+                                className="group p-6 glass hover:neon-glow dark:hover:neon-glow light-hover transition-all duration-300 rounded-3xl flex flex-col items-center gap-4 border border-border/10 dark:border-white/5"
                             >
-                                <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-accent-neon group-hover:text-background transition-colors duration-500">
+                                <div className="w-12 h-12 rounded-2xl bg-foreground/5 dark:bg-white/5 flex items-center justify-center group-hover:bg-accent-blue dark:group-hover:bg-accent-neon group-hover:text-white dark:group-hover:text-background transition-colors duration-500">
                                     <social.icon size={24} />
                                 </div>
-                                <div className="text-xs font-mono uppercase tracking-widest text-gray-400 group-hover:text-white transition-colors flex items-center gap-1">
+                                <div className="text-xs font-mono uppercase tracking-widest text-muted group-hover:text-foreground dark:group-hover:text-white transition-colors flex items-center gap-1">
                                     {social.name}
                                     <ArrowUpRight size={12} />
                                 </div>

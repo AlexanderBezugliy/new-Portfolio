@@ -32,34 +32,34 @@ const ParticleBackground: React.FC = () => {
                 style={{ y: y1 }}
                 animate={{ 
                     scale: [1, 1.2, 1],
-                    opacity: [0.15, 0.25, 0.15]
+                    opacity: [0.05, 0.1, 0.05]
                 }}
                 transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-[30%] -left-[15%] w-[80%] h-[80%] rounded-full bg-accent-blue/20 blur-[140px]"
+                className="absolute -top-[30%] -left-[15%] w-[80%] h-[80%] rounded-full bg-accent-blue/20 dark:bg-accent-blue/30 blur-[140px]"
             />
             <motion.div
                 style={{ y: y2 }}
                 animate={{ 
                     scale: [1.2, 1, 1.2],
-                    opacity: [0.1, 0.2, 0.1]
+                    opacity: [0.03, 0.08, 0.03]
                 }}
                 transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-[20%] -right-[15%] w-[70%] h-[70%] rounded-full bg-accent-purple/15 blur-[120px]"
+                className="absolute top-[20%] -right-[15%] w-[70%] h-[70%] rounded-full bg-accent-purple/15 dark:bg-accent-purple/20 blur-[120px]"
             />
             <motion.div 
                 animate={{ 
                     scale: [0.8, 1.1, 0.8],
-                    opacity: [0.05, 0.15, 0.05]
+                    opacity: [0.02, 0.06, 0.02]
                 }}
                 transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute bottom-[-10%] left-[10%] w-[60%] h-[60%] rounded-full bg-accent-neon/10 blur-[130px]" 
+                className="absolute bottom-[-10%] left-[10%] w-[60%] h-[60%] rounded-full bg-accent-neon/10 dark:bg-accent-neon/15 blur-[130px]" 
             />
 
             {/* Grid Pattern */}
             <div
-                className="absolute inset-0 opacity-[0.25]"
+                className="absolute inset-0 opacity-[0.05] dark:opacity-[0.15]"
                 style={{
-                    backgroundImage: `linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)`,
+                    backgroundImage: `linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)`,
                     backgroundSize: "60px 60px",
                     maskImage:
                         "radial-gradient(circle at 50% 50%, black, transparent 90%)",
@@ -70,7 +70,7 @@ const ParticleBackground: React.FC = () => {
             {particles.map((p) => (
                 <motion.div
                     key={p.id}
-                    className="absolute bg-white/40 rounded-full"
+                    className="absolute bg-foreground/20 dark:bg-white/40 rounded-full"
                     style={{
                         left: `${p.x}%`,
                         top: `${p.y}%`,

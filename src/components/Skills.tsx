@@ -1,7 +1,23 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Code2, Database, Layout, Smartphone, Globe, Cpu } from "lucide-react";
+import {
+    Code2,
+    Database,
+    Layout,
+    Smartphone,
+    Globe,
+    Cpu,
+    Zap,
+    Box,
+    Layers,
+    Share2,
+    Cloud,
+    Terminal,
+    Figma,
+} from "lucide-react";
+import { useTheme } from "next-themes";
 import ShaderBackground from "./ui/shader-background";
+import { BackgroundPaths } from "./ui/background-paths";
 
 const skills = [
     { name: "React", icon: Layout, level: "Expert", color: "#61DAFB" },
@@ -15,6 +31,20 @@ const skills = [
     },
     { name: "Node.js", icon: Database, level: "Advanced", color: "#339933" },
     { name: "Framer Motion", icon: Cpu, level: "Advanced", color: "#FF0055" },
+    // Row 2
+    { name: "Vue.js", icon: Layout, level: "Intermediate", color: "#42B883" },
+    { name: "Svelte", icon: Zap, level: "Intermediate", color: "#FF3E00" },
+    { name: "Three.js", icon: Box, level: "Advanced", color: "#ffffff" },
+    { name: "Figma", icon: Figma, level: "Expert", color: "#F24E1E" },
+    { name: "Redux", icon: Layers, level: "Advanced", color: "#764ABC" },
+    { name: "GraphQL", icon: Share2, level: "Advanced", color: "#E10098" },
+    // Row 3
+    { name: "Docker", icon: Box, level: "Advanced", color: "#2496ED" },
+    { name: "PostgreSQL", icon: Database, level: "Advanced", color: "#336791" },
+    { name: "AWS", icon: Cloud, level: "Intermediate", color: "#FF9900" },
+    { name: "Python", icon: Code2, level: "Advanced", color: "#3776AB" },
+    { name: "Go", icon: Zap, level: "Intermediate", color: "#00ADD8" },
+    { name: "Rust", icon: Terminal, level: "Beginner", color: "#DEA584" },
 ];
 
 const SkillCard: React.FC<{ skill: (typeof skills)[0]; index: number }> = ({
@@ -36,32 +66,38 @@ const SkillCard: React.FC<{ skill: (typeof skills)[0]; index: number }> = ({
             />
 
             <div className="relative z-10">
-                <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-6 group-hover:bg-white/10 transition-colors">
-                    <skill.icon className="w-6 h-6 text-accent-neon group-hover:text-white transition-colors" />
+                <div className="w-12 h-12 rounded-2xl bg-blue-50/50 dark:bg-white/5 flex items-center justify-center mb-6 group-hover:bg-blue-100/50 dark:group-hover:bg-white/10 transition-colors">
+                    <skill.icon className="w-6 h-6 text-primary dark:text-accent-neon group-hover:scale-110 transition-transform" />
                 </div>
 
-                <h3 className="text-xl font-bold mb-2 text-white group-hover:text-accent-neon transition-colors">
+                <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
                     {skill.name}
                 </h3>
-                <p className="text-gray-400 text-sm font-mono tracking-wider">
+                <p className="text-muted text-sm font-mono tracking-wider">
                     {skill.level}
                 </p>
             </div>
 
-            <div className="absolute bottom-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                <skill.icon className="w-12 h-12" />
+            <div className="absolute bottom-4 right-4 opacity-[0.03] dark:opacity-10 group-hover:opacity-[0.08] dark:group-hover:opacity-20 transition-opacity">
+                <skill.icon className="w-12 h-12 text-primary dark:text-white" />
             </div>
         </motion.div>
     );
 };
 
 const Skills: React.FC = () => {
+    const { theme } = useTheme();
+
     return (
         <section
             id="skills"
             className="py-24 bg-background relative overflow-hidden"
         >
-            <ShaderBackground />
+            {theme === "dark" ? (
+                <ShaderBackground />
+            ) : (
+                <BackgroundPaths color="rgba(0,0,0,0.15)" />
+            )}
             {/* Background Decor */}
             <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-accent-purple/5 blur-[120px] rounded-full pointer-events-none" />
 
@@ -80,7 +116,7 @@ const Skills: React.FC = () => {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="text-gray-400 text-lg font-light leading-relaxed"
+                        className="text-muted text-lg font-light leading-relaxed"
                     >
                         My approach combines modern architecture with a focus on
                         visual impact. I use technologies that allow for fast

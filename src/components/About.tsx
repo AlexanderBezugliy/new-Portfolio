@@ -15,8 +15,8 @@ const About: React.FC = () => {
             className="py-32 relative bg-background overflow-hidden"
         >
             {/* Decorative text background */}
-            <div className="absolute top-0 left-0 w-full h-full pointer-events-none select-none opacity-[0.02] flex items-center justify-center overflow-hidden">
-                <span className="text-[40vw] font-black leading-none tracking-tighter">
+            <div className="absolute top-0 left-0 w-full h-full pointer-events-none select-none opacity-[0.01] dark:opacity-[0.02] flex items-center justify-center overflow-hidden">
+                <span className="text-[40vw] font-black leading-none tracking-tighter text-foreground">
                     PHILOSOPHY
                 </span>
             </div>
@@ -31,7 +31,7 @@ const About: React.FC = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8">
+                            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8 text-foreground">
                                 CRAFTING{" "}
                                 <span className="text-gradient italic">
                                     INTENTION
@@ -39,14 +39,14 @@ const About: React.FC = () => {
                                 <br />
                                 THROUGH CODE.
                             </h2>
-                            <p className="text-xl text-gray-400 font-light leading-relaxed max-w-2xl">
+                            <p className="text-xl text-muted font-light leading-relaxed max-w-2xl">
                                 I believe that every pixel should serve a
                                 purpose. My work sits at the intersection of{" "}
-                                <span className="text-white font-medium">
+                                <span className="text-foreground font-medium">
                                     technical precision
                                 </span>{" "}
                                 and
-                                <span className="text-white font-medium">
+                                <span className="text-foreground font-medium">
                                     {" "}
                                     creative expression
                                 </span>
@@ -55,7 +55,7 @@ const About: React.FC = () => {
                             </p>
                         </motion.div>
 
-                        <div className="grid grid-cols-2 gap-8 pt-8 border-t border-white/5">
+                        <div className="grid grid-cols-2 gap-8 pt-8 border-t border-border/10">
                             {stats.map((stat, i) => (
                                 <motion.div
                                     key={stat.label}
@@ -67,10 +67,10 @@ const About: React.FC = () => {
                                         duration: 0.5,
                                     }}
                                 >
-                                    <div className="text-4xl md:text-5xl font-black text-white mb-2 tracking-tighter">
+                                    <div className="text-4xl md:text-5xl font-black text-foreground mb-2 tracking-tighter">
                                         {stat.value}
                                     </div>
-                                    <div className="text-xs font-mono text-accent-neon uppercase tracking-widest">
+                                    <div className="text-xs font-mono text-accent-blue dark:text-accent-neon uppercase tracking-widest">
                                         {stat.label}
                                     </div>
                                 </motion.div>
@@ -88,11 +88,11 @@ const About: React.FC = () => {
                                 duration: 1,
                                 ease: [0.16, 1, 0.3, 1],
                             }}
-                            className="relative aspect-square rounded-[60px] glass overflow-hidden p-2"
+                            className="relative aspect-square rounded-[60px] glass overflow-hidden p-2 shadow-2xl"
                         >
-                            <div className="absolute inset-0 bg-gradient-to-tr from-accent-blue/20 via-transparent to-accent-purple/20" />
-                            <div className="w-full h-full rounded-[50px] bg-surface-medium flex items-center justify-center border border-white/10 group">
-                                <div className="text-accent-neon/20 group-hover:text-accent-neon/40 transition-colors duration-500">
+                            <div className="absolute inset-0 bg-gradient-to-tr from-accent-blue/10 dark:from-accent-blue/20 via-transparent to-accent-purple/10 dark:to-accent-purple/20" />
+                            <div className="w-full h-full rounded-[50px] bg-surface-medium/20 dark:bg-surface-medium flex items-center justify-center border border-border/10 dark:border-white/10 group transition-colors">
+                                <div className="text-accent-blue/20 dark:text-accent-neon/20 group-hover:text-accent-blue/40 dark:group-hover:text-accent-neon/40 transition-colors duration-500">
                                     {/* Placeholder for an image or dynamic element */}
                                     <svg
                                         width="200"

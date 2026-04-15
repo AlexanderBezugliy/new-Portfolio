@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
 import { BackgroundPaths } from "./ui/background-paths";
+import { GeometricBackground } from "./ui/shape-landing-hero";
 
 const experience = [
     {
@@ -34,15 +36,21 @@ const experience = [
 ];
 
 const Experience: React.FC = () => {
+    const { theme } = useTheme();
+
     return (
         <section
             id="experience"
-            className="py-32 bg-background relative overflow-hidden"
+            className="py-32 bg-background dark:bg-[#030303] relative overflow-hidden"
         >
-            <BackgroundPaths color="#00f2ff" />
+            {theme === "dark" ? (
+                <GeometricBackground />
+            ) : (
+                <BackgroundPaths color="rgba(0,0,0,0.15)" />
+            )}
             {/* Background Decor */}
-            <div className="absolute top-[20%] right-[-10%] w-[50%] h-[50%] bg-accent-blue/5 blur-[120px] rounded-full pointer-events-none" />
-            <div className="absolute bottom-0 left-[-10%] w-[50%] h-[50%] bg-accent-purple/5 blur-[120px] rounded-full pointer-events-none" />
+            <div className="absolute top-[20%] right-[-10%] w-[50%] h-[50%] bg-accent-blue/5 blur-[120px] rounded-full pointer-events-none dark:hidden" />
+            <div className="absolute bottom-0 left-[-10%] w-[50%] h-[50%] bg-accent-purple/5 blur-[120px] rounded-full pointer-events-none dark:hidden" />
 
             <div className="container mx-auto px-6 relative z-10">
                 <div className="max-w-2xl mb-24">
@@ -50,7 +58,7 @@ const Experience: React.FC = () => {
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="text-5xl md:text-7xl font-black tracking-tighter mb-8"
+                        className="text-5xl md:text-7xl font-black tracking-tighter mb-8 text-foreground"
                     >
                         JOURNEY <br />
                         <span className="text-gradient uppercase">
@@ -59,7 +67,7 @@ const Experience: React.FC = () => {
                     </motion.h2>
                 </div>
 
-                <div className="relative max-w-4xl mx-auto pl-8 border-l border-white/10 space-y-24">
+                <div className="relative max-w-4xl mx-auto pl-8 border-l border-border/20 space-y-24">
                     {experience.map((item, i) => (
                         <motion.div
                             key={item.company}
@@ -70,23 +78,23 @@ const Experience: React.FC = () => {
                             className="relative group"
                         >
                             {/* Timeline Point */}
-                            <div className="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-background border-2 border-accent-neon neon-glow-small z-20 group-hover:scale-150 transition-transform duration-300" />
+                            <div className="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-background border-2 border-accent-blue dark:border-accent-neon z-20 group-hover:scale-150 transition-transform duration-300 shadow-[0_0_10px_var(--accent-glow)]" />
 
                             <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-16">
                                 <div className="w-40 flex-shrink-0">
-                                    <div className="text-sm font-mono text-accent-neon/70 mb-1">
+                                    <div className="text-sm font-mono text-accent-blue dark:text-accent-neon opacity-70 mb-1">
                                         {item.period}
                                     </div>
-                                    <h3 className="text-xl font-black text-white group-hover:text-accent-neon transition-colors">
+                                    <h3 className="text-xl font-black text-foreground group-hover:text-accent-blue dark:group-hover:text-accent-neon transition-colors">
                                         {item.company}
                                     </h3>
                                 </div>
 
                                 <div className="flex-grow">
-                                    <div className="text-lg font-bold text-gray-200 mb-4 tracking-tight">
+                                    <div className="text-lg font-bold text-foreground/80 dark:text-gray-200 mb-4 tracking-tight">
                                         {item.role}
                                     </div>
-                                    <p className="text-gray-400 font-light leading-relaxed max-w-xl">
+                                    <p className="text-muted font-light leading-relaxed max-w-xl">
                                         {item.description}
                                     </p>
                                 </div>

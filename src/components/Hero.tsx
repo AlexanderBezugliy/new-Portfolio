@@ -41,7 +41,7 @@ const Hero: React.FC = () => {
                     className="perspective-1000"
                 >
                     <motion.span
-                        className="inline-block py-2 px-4 rounded-full border border-accent-neon/30 bg-accent-neon/5 text-accent-neon text-xs font-mono mb-8 tracking-[0.2em]"
+                        className="inline-block py-2 px-4 rounded-full border border-accent-blue/20 dark:border-accent-neon/30 bg-accent-blue/5 dark:bg-accent-neon/5 text-accent-blue dark:text-accent-neon text-xs font-mono mb-8 tracking-[0.2em]"
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.8 }}
@@ -53,7 +53,7 @@ const Hero: React.FC = () => {
                         {titleLines.map((line, i) => (
                             <motion.span
                                 key={i}
-                                className={`block ${i === 1 ? "text-gradient" : "text-white"}`}
+                                className={`block ${i === 1 ? "text-gradient" : "text-foreground"}`}
                                 initial={{
                                     opacity: 0,
                                     x: i % 2 === 0 ? -100 : 100,
@@ -71,15 +71,18 @@ const Hero: React.FC = () => {
                     </h1>
 
                     <motion.p
-                        className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed font-light"
+                        className="text-xl md:text-2xl text-muted max-w-2xl mx-auto mb-12 leading-relaxed font-light"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1, duration: 1 }}
                     >
                         Building high-performance digital experiences where
-                        <span className="text-white font-medium"> code </span>
+                        <span className="text-foreground font-medium">
+                            {" "}
+                            code{" "}
+                        </span>
                         meets
-                        <span className="text-white font-medium">
+                        <span className="text-foreground font-medium">
                             {" "}
                             aesthetics
                         </span>
@@ -95,20 +98,20 @@ const Hero: React.FC = () => {
                         <motion.button
                             whileHover={{
                                 scale: 1.05,
-                                boxShadow: "0 0 20px rgba(0, 242, 255, 0.4)",
+                                boxShadow: "0 0 40px rgba(15,23,42,0.3)",
                             }}
                             whileTap={{ scale: 0.95 }}
-                            className="px-10 py-4 bg-white text-background rounded-full font-bold text-lg hover:bg-accent-neon transition-all duration-300 neon-glow"
+                            className="px-8 py-4 bg-primary text-primary-foreground rounded-full font-bold text-sm uppercase tracking-widest transition-all duration-300 shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30"
                         >
-                            View Work
+                            View Projects
                         </motion.button>
                         <motion.button
                             whileHover={{
                                 scale: 1.05,
-                                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                                boxShadow: "0 8px 30px rgba(15,23,42,0.15)",
                             }}
                             whileTap={{ scale: 0.95 }}
-                            className="px-10 py-4 glass rounded-full font-bold text-lg text-white transition-all duration-300"
+                            className="px-8 py-4 glass glass-hover text-foreground rounded-full font-bold text-sm uppercase tracking-widest transition-all duration-300 border-2 border-foreground/20 hover:border-foreground/40"
                         >
                             Get in Touch
                         </motion.button>

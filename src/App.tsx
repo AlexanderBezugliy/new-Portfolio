@@ -54,7 +54,7 @@ const App: React.FC = () => {
                 style={isAtContact ? { transform: "none" } : { scaleX }}
             />
 
-            <main className="bg-background">
+            <main className="bg-background text-foreground transition-colors duration-500">
                 <Hero />
                 <About />
                 <Skills />
@@ -66,8 +66,8 @@ const App: React.FC = () => {
 
             {/* Global Background Glow */}
             <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
-                <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-accent-blue/5 blur-[120px] rounded-full" />
-                <div className="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] bg-accent-purple/5 blur-[120px] rounded-full" />
+                <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-accent-blue/5 dark:bg-accent-blue/10 blur-[120px] rounded-full transition-colors duration-500" />
+                <div className="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] bg-accent-purple/5 dark:bg-accent-purple/10 blur-[120px] rounded-full transition-colors duration-500" />
             </div>
         </div>
     );

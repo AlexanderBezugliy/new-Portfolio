@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from "react";
+import { useTheme } from "next-themes";
 
 const ShaderBackground = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const { theme } = useTheme();
 
     // Vertex shader source code
     const vsSource = ` 
@@ -16,6 +18,7 @@ const ShaderBackground = () => {
      precision highp float; 
      uniform vec2 iResolution; 
      uniform float iTime; 
+     uniform float iDarkMode;
  
      const float overallSpeed = 0.2; 
      const float gridSmoothWidth = 0.015; 
@@ -24,9 +27,7 @@ const ShaderBackground = () => {
      const float minorLineWidth = 0.0125; 
      const float majorLineFrequency = 5.0; 
      const float minorLineFrequency = 1.0; 
-     const vec4 gridColor = vec4(0.5); 
      const float scale = 5.0; 
-     const vec4 lineColor = vec4(0.4, 0.2, 0.8, 1.0); 
      const float minLineWidth = 0.01; 
      const float maxLineWidth = 0.2; 
      const float lineSpeed = 1.0 * overallSpeed; 
@@ -77,11 +78,22 @@ const ShaderBackground = () => {
        space.x += random(space.y * warpFrequency + iTime * warpSpeed + 2.0) * warpAmplitude * horizontalFade; 
  
        vec4 lines = vec4(0.0); 
-       vec4 bgColor1 = vec4(0.1, 0.1, 0.3, 1.0); 
-       vec4 bgColor2 = vec4(0.3, 0.1, 0.5, 1.0); 
+       
+       // Theme-aware colors
+       vec4 bgColor1 = mix(vec4(1.0, 1.0, 1.0, 1.0), vec4(0.01, 0.01, 0.1, 1.0), iDarkMode); 
+       vec4 bgColor2 = mix(vec4(0.98, 0.99, 1.0, 1.0), vec4(0.05, 0.02, 0.15, 1.0), iDarkMode); 
+       
+       // Saturated purple-blue gradient for light mode, cyan for dark mode
+        vec4 colorPurple = vec4(0.65, 0.25, 0.95, 1.0);
+        vec4 colorBlue = vec4(0.15, 0.45, 0.95, 1.0);
+        vec4 lightLineColor = mix(colorPurple, colorBlue, uv.x);
+        vec4 lineColor = mix(lightLineColor * 0.3, vec4(0.0, 0.95, 1.0, 1.0), iDarkMode); 
  
        for(int l = 0; l < linesPerGroup; l++) { 
          float normalizedLineIndex = float(l) / float(linesPerGroup); 
+         // Individual line color shift for more depth
+         vec4 currentLineColor = mix(lineColor, mix(colorBlue, colorPurple, normalizedLineIndex) * mix(0.15, 1.0, iDarkMode), 0.5);
+         
          float offsetTime = iTime * offsetSpeed; 
          float offsetPosition = float(l) + space.x * offsetFrequency; 
          float rand = random(offsetPosition + offsetTime) * 0.5 + 0.5; 
@@ -95,11 +107,14 @@ const ShaderBackground = () => {
          float circle = drawCircle(circlePosition, 0.01, space) * 4.0; 
  
          line = line + circle; 
-         lines += line * lineColor * rand; 
+         lines += line * currentLineColor * rand; 
        } 
  
        fragColor = mix(bgColor1, bgColor2, uv.x); 
-       fragColor *= verticalFade; 
+       // Only apply vertical fade in dark mode for more dramatic effect
+       if (iDarkMode > 0.5) {
+         fragColor *= verticalFade; 
+       }
        fragColor.a = 1.0; 
        fragColor += lines; 
  
@@ -191,6 +206,7 @@ const ShaderBackground = () => {
             uniformLocations: {
                 resolution: gl.getUniformLocation(shaderProgram, "iResolution"),
                 time: gl.getUniformLocation(shaderProgram, "iTime"),
+                darkMode: gl.getUniformLocation(shaderProgram, "iDarkMode"),
             },
         };
 
@@ -215,7 +231,13 @@ const ShaderBackground = () => {
         const render = () => {
             const currentTime = (Date.now() - startTime) / 1000;
 
-            gl.clearColor(0.0, 0.0, 0.0, 1.0);
+            // Set clear color based on theme
+            const isDark = theme === "dark" ? 1.0 : 0.0;
+            if (isDark) {
+                gl.clearColor(0.01, 0.01, 0.05, 1.0);
+            } else {
+                gl.clearColor(0.97, 0.98, 1.0, 1.0);
+            }
             gl.clear(gl.COLOR_BUFFER_BIT);
 
             gl.useProgram(programInfo.program);
@@ -226,6 +248,7 @@ const ShaderBackground = () => {
                 canvas.height,
             );
             gl.uniform1f(programInfo.uniformLocations.time, currentTime);
+            gl.uniform1f(programInfo.uniformLocations.darkMode, isDark);
 
             gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
             gl.vertexAttribPointer(
@@ -250,7 +273,7 @@ const ShaderBackground = () => {
             window.removeEventListener("resize", resizeCanvas);
             cancelAnimationFrame(animationFrameId);
         };
-    }, []);
+    }, [theme]);
 
     return (
         <canvas

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "./ui/theme-toggle";
 
 const navItems = [
     { name: "Hero", href: "#hero" },
@@ -60,58 +61,70 @@ const Navbar: React.FC = () => {
             >
                 {/* Desktop Navigation */}
                 <div
-                    className={`hidden lg:flex glass rounded-full px-1.5 py-1.5 items-center gap-1 border border-white/10 backdrop-blur-md shadow-2xl transition-all duration-500 pointer-events-auto ${
-                        isScrolled ? "max-w-max" : "max-w-4xl"
-                    }`}
+                    className={`hidden lg:flex items-center gap-4 pointer-events-auto`}
                 >
-                    <div className="flex items-center gap-1">
-                        {navItems.map((item) => {
-                            const isActive =
-                                activeSection === item.href.substring(1);
-                            return (
-                                <a
-                                    key={item.name}
-                                    href={item.href}
-                                    onClick={(e) =>
-                                        scrollToSection(e, item.href)
-                                    }
-                                    className="relative px-4 py-2 text-xs font-mono uppercase tracking-widest transition-colors duration-300 group"
-                                >
-                                    <span
-                                        className={`relative z-10 transition-colors duration-300 ${isActive ? "text-background font-bold" : "text-gray-400 group-hover:text-white"}`}
+                    <div
+                        className={`flex glass glass-hover rounded-full px-1.5 py-1.5 items-center gap-1 shadow-2xl transition-all duration-500 ${
+                            isScrolled ? "max-w-max" : "max-w-4xl"
+                        }`}
+                    >
+                        <div className="flex items-center gap-1">
+                            {navItems.map((item) => {
+                                const isActive =
+                                    activeSection === item.href.substring(1);
+                                return (
+                                    <a
+                                        key={item.name}
+                                        href={item.href}
+                                        onClick={(e) =>
+                                            scrollToSection(e, item.href)
+                                        }
+                                        className="relative px-4 py-2 text-xs font-mono uppercase tracking-widest transition-colors duration-300 group"
                                     >
-                                        {item.name}
-                                    </span>
+                                        <span
+                                            className={`relative z-10 transition-colors duration-300 ${isActive ? "text-[var(--pill-text)] font-bold" : "text-muted hover:text-foreground"}`}
+                                        >
+                                            {item.name}
+                                        </span>
 
-                                    {isActive && (
-                                        <motion.div
-                                            layoutId="nav-pill"
-                                            className="absolute inset-0 bg-accent-neon rounded-full z-0 shadow-[0_0_15px_rgba(0,242,255,0.5)]"
-                                            transition={{
-                                                type: "spring",
-                                                stiffness: 380,
-                                                damping: 30,
-                                            }}
-                                        />
-                                    )}
+                                        {isActive && (
+                                            <motion.div
+                                                layoutId="nav-pill"
+                                                className="absolute inset-0 bg-[var(--pill-bg)] rounded-full z-0 shadow-[0_0_15px_var(--accent-glow)]"
+                                                transition={{
+                                                    type: "spring",
+                                                    stiffness: 380,
+                                                    damping: 30,
+                                                }}
+                                            />
+                                        )}
 
-                                    {!isActive && (
-                                        <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 rounded-full transition-colors duration-300" />
-                                    )}
-                                </a>
-                            );
-                        })}
+                                        {!isActive && (
+                                            <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 dark:group-hover:bg-white/5 rounded-full transition-colors duration-300" />
+                                        )}
+                                    </a>
+                                );
+                            })}
+                        </div>
                     </div>
+                    <ThemeToggle />
                 </div>
 
-                {/* Mobile Toggle Button */}
-                <div className="lg:hidden w-full flex justify-end pointer-events-none">
+                {/* Mobile Header */}
+                <div className="lg:hidden w-full flex justify-between items-center pointer-events-none">
+                    <div className="pointer-events-auto">
+                        <ThemeToggle />
+                    </div>
                     <motion.button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="glass p-3 rounded-full border border-white/10 backdrop-blur-md text-white shadow-2xl pointer-events-auto"
+                        className="glass p-3 rounded-full text-foreground shadow-2xl pointer-events-auto"
                         whileTap={{ scale: 0.9 }}
                     >
-                        {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                        {isMobileMenuOpen ? (
+                            <X size={24} />
+                        ) : (
+                            <Menu size={24} />
+                        )}
                     </motion.button>
                 </div>
             </motion.nav>
@@ -144,8 +157,8 @@ const Navbar: React.FC = () => {
                                         <span
                                             className={`text-3xl md:text-4xl font-black tracking-tighter transition-all duration-300 text-center ${
                                                 isActive
-                                                    ? "text-accent-neon scale-110"
-                                                    : "text-white/40 hover:text-white"
+                                                    ? "text-[var(--pill-bg)] scale-110"
+                                                    : "text-muted hover:text-foreground"
                                             }`}
                                         >
                                             {item.name}
@@ -153,7 +166,7 @@ const Navbar: React.FC = () => {
                                         {isActive && (
                                             <motion.div
                                                 layoutId="active-dot"
-                                                className="absolute -left-2 md:-left-8 w-2 h-2 md:w-3 md:h-3 bg-accent-neon rounded-full shadow-[0_0_15px_rgba(0,242,255,0.8)]"
+                                                className="absolute -left-2 md:-left-8 w-2 h-2 md:w-3 md:h-3 bg-[var(--pill-bg)] rounded-full shadow-[0_0_15px_var(--accent-glow)]"
                                             />
                                         )}
                                     </motion.a>

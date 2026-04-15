@@ -22,7 +22,7 @@ function FloatingPaths({
                     684 - i * 5 * position
                 } ${875 - i * 6} ${684 - i * 5 * position} ${875 - i * 6}`,
                 width: 0.5 + i * 0.03,
-                duration: 20 + Math.random() * 10,
+                duration: 20 + ((i * 7) % 10),
             })),
         [position],
     );
@@ -37,7 +37,7 @@ function FloatingPaths({
                         d={path.d}
                         stroke={color || "currentColor"}
                         strokeWidth={path.width}
-                        strokeOpacity={0.1 + path.id * 0.03}
+                        strokeOpacity={0.15 + path.id * 0.025}
                         initial={{ pathLength: 0.3, opacity: 0.6 }}
                         animate={{
                             pathLength: 1,
@@ -58,7 +58,7 @@ function FloatingPaths({
 
 export function BackgroundPaths({ color }: { color?: string }) {
     return (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-40">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute inset-0">
                 <FloatingPaths position={1} color={color} />
                 <FloatingPaths position={-1} color={color} />
