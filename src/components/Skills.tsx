@@ -82,7 +82,7 @@ const SkillCard: React.FC<{ skill: (typeof skills)[0]; index: number }> =
         );
     });
 
-const Skills: React.FC = () => {
+const Skills: React.FC = React.memo(() => {
     return (
         <section
             id="skills"
@@ -127,6 +127,6 @@ const Skills: React.FC = () => {
             </div>
         </section>
     );
-};
+});
 
 export default Skills;

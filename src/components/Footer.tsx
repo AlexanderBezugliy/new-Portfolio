@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Twitter, ChevronUp } from "lucide-react";
 
-const Footer: React.FC = () => {
+const Footer: React.FC = React.memo(() => {
     const socialLinks = [
         { name: "GitHub", icon: Github, href: "#" },
         { name: "LinkedIn", icon: Linkedin, href: "#" },
@@ -80,6 +80,6 @@ const Footer: React.FC = () => {
             </div>
         </footer>
     );
-};
+});
 
 export default Footer;

@@ -31,7 +31,7 @@ const StatItem: React.FC<{ stat: (typeof stats)[0]; i: number }> = React.memo(
     ),
 );
 
-const About: React.FC = () => {
+const About: React.FC = React.memo(() => {
     return (
         <section
             id="about"
@@ -140,6 +140,6 @@ const About: React.FC = () => {
             </div>
         </section>
     );
-};
+});
 
 export default About;

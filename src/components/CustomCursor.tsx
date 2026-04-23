@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import { motion, useSpring, useMotionValue, useTransform } from "framer-motion";
 
-const CustomCursor: React.FC = () => {
+const CustomCursor: React.FC = memo(() => {
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
     const [isHovered, setIsHovered] = useState(false);
@@ -79,6 +79,6 @@ const CustomCursor: React.FC = () => {
             </motion.div>
         </motion.div>
     );
-};
+});
 
 export default CustomCursor;

@@ -103,7 +103,7 @@ const ProjectCard: React.FC<{
     );
 });
 
-const Projects: React.FC = () => {
+const Projects: React.FC = React.memo(() => {
     return (
         <section id="projects" className="py-32 relative bg-background">
             {/* Background Decor */}
@@ -157,6 +157,6 @@ const Projects: React.FC = () => {
             </div>
         </section>
     );
-};
+});
 
 export default Projects;

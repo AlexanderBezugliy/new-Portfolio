@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, memo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import NeuralBackground from "./ui/flow-field-background";
 import { ChevronDown } from "lucide-react";
 
-const Hero: React.FC = () => {
+const Hero: React.FC = memo(() => {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollY } = useScroll();
     const [isMobile, setIsMobile] = React.useState(false);
@@ -45,41 +45,25 @@ const Hero: React.FC = () => {
                         willChange: "transform",
                     }}
                 >
-                    <motion.span
+                    <span
                         className="inline-block py-2 px-4 rounded-full border border-accent-blue/20 dark:border-accent-neon/30 bg-accent-blue/5 dark:bg-accent-neon/5 text-accent-blue dark:text-accent-neon text-xs font-mono mb-8 tracking-[0.2em]"
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2, duration: 0.8 }}
                     >
                         AVAILABLE FOR NEW PROJECTS
-                    </motion.span>
+                    </span>
 
                     <h1 className="text-7xl md:text-9xl font-black tracking-tighter mb-8 leading-none">
                         {titleLines.map((line, i) => (
-                            <motion.span
+                            <span
                                 key={i}
                                 className={`block ${i === 1 ? "text-gradient" : "text-foreground"}`}
-                                initial={{
-                                    opacity: 0,
-                                    x: i % 2 === 0 ? -100 : 100,
-                                }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{
-                                    duration: 1.2,
-                                    delay: 0.4 + i * 0.2,
-                                    ease: [0.16, 1, 0.3, 1],
-                                }}
                             >
                                 {line}
-                            </motion.span>
+                            </span>
                         ))}
                     </h1>
 
-                    <motion.p
+                    <p
                         className="text-xl md:text-2xl text-muted max-w-2xl mx-auto mb-12 leading-relaxed font-light"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1, duration: 1 }}
                     >
                         Building high-performance digital experiences where
                         <span className="text-foreground font-medium">
@@ -92,13 +76,10 @@ const Hero: React.FC = () => {
                             aesthetics
                         </span>
                         .
-                    </motion.p>
+                    </p>
 
-                    <motion.div
+                    <div
                         className="flex flex-col sm:flex-row items-center justify-center gap-6"
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 1.2, duration: 0.8 }}
                     >
                         <motion.button
                             whileHover={{
@@ -122,7 +103,7 @@ const Hero: React.FC = () => {
                         >
                             Get in Touch
                         </motion.button>
-                    </motion.div>
+                    </div>
                 </motion.div>
             </div>
 
@@ -154,6 +135,6 @@ const Hero: React.FC = () => {
             </div>
         </section>
     );
-};
+});
 
 export default Hero;

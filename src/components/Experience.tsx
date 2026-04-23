@@ -71,7 +71,7 @@ const ExperienceItem: React.FC<{
     </motion.div>
 ));
 
-const Experience: React.FC = () => {
+const Experience: React.FC = React.memo(() => {
     return (
         <section
             id="experience"
@@ -109,6 +109,6 @@ const Experience: React.FC = () => {
             </div>
         </section>
     );
-};
+});
 
 export default Experience;
